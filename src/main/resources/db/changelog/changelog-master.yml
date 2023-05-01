@@ -8,3 +8,5 @@ databaseChangeLog:
       file: db/changelog/changeset/create-user-content-table.sql
   - include:
       file: db/changelog/changeset/create-user-content-tag.sql
+  - include:
+      file: db/changelog/changeset/insert-user-table/sql

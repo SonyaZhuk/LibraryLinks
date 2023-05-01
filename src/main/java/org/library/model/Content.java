@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.library.enums.ContentType;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -27,7 +28,8 @@ public class Content {
     private String link;
 
     @Column(name = "type", nullable = false)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ContentType type;
 
     @CreationTimestamp
     @Column(name = "created_date")

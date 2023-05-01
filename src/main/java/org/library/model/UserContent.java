@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.library.enums.ContentStatus;
+import org.library.enums.Priority;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -23,9 +25,9 @@ public class UserContent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id", unique = true)
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+//    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id", unique = true)
+//    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "content_id", nullable = false, referencedColumnName = "id", unique = true)
@@ -36,6 +38,14 @@ public class UserContent {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "priority")
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ContentStatus status;
 
     @Column(name = "rating")
     private Integer rating;
