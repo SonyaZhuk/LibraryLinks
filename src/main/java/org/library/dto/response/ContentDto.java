@@ -1,19 +1,21 @@
-package org.library.dto;
+package org.library.dto.response;
 
 import lombok.Builder;
 import lombok.Data;
+import org.library.enums.ContentStatus;
 import org.library.enums.ContentType;
 import org.library.enums.Priority;
 
 @Data
 @Builder
-public class CreateContentDto {
+public class ContentDto {
 
-    private String name;
-    private String description;
-    private String tag;
     private String link;
     private ContentType type;
+    private String tag;
+    private String name;
+    private String description;
     private Priority priority;
+    private ContentStatus status;
     private Integer rating;
 }

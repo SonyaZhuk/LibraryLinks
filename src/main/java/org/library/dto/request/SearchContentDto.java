@@ -1,4 +1,4 @@
-package org.library.dto;
+package org.library.dto.request;
 
 import lombok.Builder;
 import lombok.Data;

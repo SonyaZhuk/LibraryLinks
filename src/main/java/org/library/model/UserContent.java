@@ -1,60 +1,36 @@
 package org.library.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.library.enums.ContentStatus;
+import org.library.enums.ContentType;
 import org.library.enums.Priority;
 
-import javax.persistence.*;
 import java.time.Instant;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_content")
 public class UserContent {
 
-    @Id
-    @Column(name = "id", nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-//    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id", unique = true)
-//    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "content_id", nullable = false, referencedColumnName = "id", unique = true)
-    private Content content;
-
-    @Column(name = "name", nullable = false)
+    private String link;
+    @JsonProperty("content_type")
+    private ContentType type;
+    private String tag;
     private String name;
-
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "priority")
-    @Enumerated(EnumType.STRING)
     private Priority priority;
-
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
     private ContentStatus status;
-
-    @Column(name = "rating")
     private Integer rating;
-
-    @CreationTimestamp
-    @Column(name = "created_date")
+    @JsonProperty("created_date")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     private Instant createdDate;
-
-    @UpdateTimestamp
-    @Column(name = "updated_date")
+    @JsonProperty("updated_date")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     private Instant updatedDate;
 }
