@@ -1,17 +1,14 @@
-version: '3'
+version: '3.6'
+
 services:
-  elasticsearch:
-    container_name: es-container
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+  postgres:
+    container_name: postgres
+    image: postgres:15.1
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres-init.sql:/docker-entrypoint-initdb.d/postgres-init.sql
     environment:
-      - xpack.security.enabled=false
-      - discovery.type=single-node
-    ports:
-      - 9200:9200
-  kibana:
-    container_name: kb-container
-    image: docker.elastic.co/kibana/kibana:7.9.1
-    depends_on:
-      - elasticsearch
-    ports:
-      - 5601:5601
+      - POSTGRES_DB=library
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

@@ -6,26 +6,22 @@ import org.library.controller.api.endpoints.ContentEndpoints;
 import org.library.dto.request.CreateContentDto;
 import org.library.dto.request.UpdateContentDto;
 import org.library.dto.response.ContentDto;
-import org.library.mapper.ContentMapper;
-import org.library.model.elastic.UserContent;
-import org.library.service.UserContentService;
+import org.library.mapper.UserContentMapper;
+import org.library.model.UserContent;
+import org.library.service.UserContentDbService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Controller implements endpoints for the CRUD
- * operation Content document.
- */
-@Deprecated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ContentEndpoints.CONTENTS)
-public class UserContentController {
+@RequestMapping(ContentEndpoints.CONTENT)
+public class UserContentDbController {
+
     @NonNull
-    private final ContentMapper mapper;
+    private final UserContentMapper mapper;
     @NonNull
-    private final UserContentService userContentService;
+    private final UserContentDbService userContentDbService;
 
     /**
      * Returns created Content.
@@ -35,9 +31,9 @@ public class UserContentController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public String create(@RequestBody final CreateContentDto dto) {
-        final UserContent content = mapper.toModel(dto);
-        return userContentService.createContent(content);
+    public ContentDto create(@RequestBody final CreateContentDto dto) {
+        UserContent userContent = mapper.toModel(dto);
+        return mapper.toDto(userContentDbService.createContent(userContent));
     }
 
     /**
@@ -48,8 +44,8 @@ public class UserContentController {
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(ContentEndpoints.ID_RELATIVE_PATH)
-    public ContentDto read(@PathVariable final String id) {
-        return mapper.toDto(userContentService.readContent(id));
+    public ContentDto read(@PathVariable final long id) {
+        return mapper.toDto(userContentDbService.readContent(id));
     }
 
     /**
@@ -61,10 +57,10 @@ public class UserContentController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(ContentEndpoints.ID_RELATIVE_PATH)
-    public String update(@PathVariable final String id,
-                             final @RequestBody UpdateContentDto dto) {
+    public ContentDto update(@PathVariable final long id,
+                         final @RequestBody UpdateContentDto dto) {
         final UserContent content = mapper.toModel(dto);
-        return userContentService.updateContent(id, content);
+        return mapper.toDto(userContentDbService.updateContent(id, content));
     }
 
     /**
@@ -75,7 +71,7 @@ public class UserContentController {
      */
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping(ContentEndpoints.ID_RELATIVE_PATH)
-    public void delete(@PathVariable final String id) {
-        userContentService.deleteContent(id);
+    public void delete(@PathVariable final long id) {
+        userContentDbService.deleteContent(id);
     }
 }

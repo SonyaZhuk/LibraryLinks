@@ -16,6 +16,12 @@ public final class ContentEndpoints {
      */
     public static final String CONTENT = "contents";
 
+    @Deprecated
+    /**
+     * Content constant.
+     */
+    public static final String CONTENTS = "content";
+
     /**
      * Content path.
      */
@@ -30,4 +36,9 @@ public final class ContentEndpoints {
      * Content with ID path.
      */
     public static final String CONTENT_WITH_ID_PATH = CONTENT_PATH + ID_RELATIVE_PATH;
+
+    /**
+     * Content tags.
+     */
+    public static final String TAG = "tags";
 }

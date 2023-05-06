@@ -1,8 +1,10 @@
 package org.library.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.library.enums.ContentStatus;
 import org.library.enums.ContentType;
 import org.library.enums.Priority;
@@ -11,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateContentDto {
 
     @NotBlank

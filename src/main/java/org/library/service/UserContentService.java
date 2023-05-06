@@ -14,7 +14,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.library.exception.ElasticClientException;
 import org.library.exception.ObjectMapperException;
-import org.library.model.UserContent;
+import org.library.model.elastic.UserContent;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,6 +23,7 @@ import java.util.UUID;
 /**
  * The service which contains CRUD operations related to the Content.
  */
+@Deprecated
 @Slf4j
 @Service
 @RequiredArgsConstructor

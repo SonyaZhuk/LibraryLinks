@@ -6,6 +6,8 @@ import org.library.enums.ContentStatus;
 import org.library.enums.ContentType;
 import org.library.enums.Priority;
 
+import java.time.Instant;
+
 @Data
 @Builder
 public class ContentDto {
@@ -18,4 +20,6 @@ public class ContentDto {
     private Priority priority;
     private ContentStatus status;
     private Integer rating;
+    private Instant createdDate;
+    private Instant updatedDate;
 }

@@ -1,36 +1,65 @@
 package org.library.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.library.enums.ContentStatus;
 import org.library.enums.ContentType;
 import org.library.enums.Priority;
 
+import javax.persistence.*;
 import java.time.Instant;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "user_content", schema = "library")
 public class UserContent {
 
+    @Id
+    @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id", unique = true)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "content_tag_id", nullable = false, referencedColumnName = "id", unique = true)
+    private ContentTag contentTag;
+
+    @Column(name = "link", nullable = false)
     private String link;
-    @JsonProperty("content_type")
+
+    @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private ContentType type;
-    private String tag;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "priority")
+    @Enumerated(EnumType.STRING)
     private Priority priority;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private ContentStatus status;
+
+    @Column(name = "rating")
     private Integer rating;
-    @JsonProperty("created_date")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
+
+    @CreationTimestamp
+    @Column(name = "created_date")
     private Instant createdDate;
-    @JsonProperty("updated_date")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
+
+    @UpdateTimestamp
+    @Column(name = "updated_date")
     private Instant updatedDate;
 }

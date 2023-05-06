@@ -2,7 +2,9 @@ CREATE TABLE library.user_content
 (
     id             SERIAL          NOT NULL,
     user_id        BIGINT          NOT NULL,
-    content_id     BIGINT          NOT NULL,
+    content_tag_id BIGINT          NOT NULL,
+    link           VARCHAR(255)    NOT NULL,
+    type           VARCHAR(50)     NOT NULL,
     name           VARCHAR(100)    NOT NULL,
     description    VARCHAR(255)    NULL,
     priority       VARCHAR(20)     NOT NULL,
@@ -13,5 +15,5 @@ CREATE TABLE library.user_content
 
     CONSTRAINT pk__user_content__id PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES library.user_lib (id),
-    FOREIGN KEY (content_id) REFERENCES library.content (id)
+    FOREIGN KEY (content_tag_id) REFERENCES library.content_tag (id)
 );
