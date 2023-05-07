@@ -3,6 +3,7 @@ package org.library.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.library.exception.EntityNotFoundException;
 import org.library.model.ContentTag;
 import org.library.repository.ContentTagRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class ContentTagService {
     }
 
     public ContentTag findByTag(String tag) {
-        return repository.findByTag(tag).orElseThrow();
+        return repository.findByTag(tag).orElseThrow(() ->
+                new EntityNotFoundException("Tag with title %s not found.", tag));
     }
 }

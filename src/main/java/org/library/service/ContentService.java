@@ -3,6 +3,7 @@ package org.library.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.library.exception.EntityNotFoundException;
 import org.library.model.ContentTag;
 import org.library.model.UserContent;
 import org.library.repository.UserContentRepository;
@@ -50,7 +51,8 @@ public class ContentService {
      * @return model transfer object UserContent.
      */
     public UserContent readContent(long id) {
-        return userContentRepository.findById(id).orElseThrow();
+        return userContentRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Content with id %d not found.", id));
     }
 
     /**
@@ -63,7 +65,8 @@ public class ContentService {
      * @return model transfer object UserContent.
      */
     public UserContent updateContent(long id, UserContent userContent) {
-        UserContent contentFromDb = userContentRepository.findById(id).orElseThrow();
+        UserContent contentFromDb = userContentRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Content with id %d not found.", id));
         contentFromDb.setLink(userContent.getLink());
         contentFromDb.setName(userContent.getName());
         contentFromDb.setDescription(userContent.getDescription());
@@ -81,7 +84,8 @@ public class ContentService {
      * @param id content id
      */
     public void deleteContent(long id) {
-        final UserContent content = userContentRepository.findById(id).orElseThrow();
+        final UserContent content = userContentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Content with id %d not found.", id));
 
         userContentRepository.delete(content);
     }
