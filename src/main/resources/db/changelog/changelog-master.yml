@@ -7,4 +7,4 @@ databaseChangeLog:
   - include:
       file: db/changelog/changeset/create-user-content-table.sql
   - include:
-      file: db/changelog/changeset/insert-user-table/sql
+      file: db/changelog/changeset/insert-user-table.sql

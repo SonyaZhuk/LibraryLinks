@@ -41,4 +41,9 @@ public final class ContentEndpoints {
      * Content tags.
      */
     public static final String TAG = "tags";
+
+    /**
+     * Tag Placeholder.
+     */
+    public static final String TAG_RELATIVE_PATH = "/{tag}";
 }

@@ -6,7 +6,7 @@ import org.library.controller.api.endpoints.ContentEndpoints;
 import org.library.dto.request.CreateContentTagDto;
 import org.library.dto.response.ContentTagDto;
 import org.library.mapper.ContentTagMapper;
-import org.library.service.TagService;
+import org.library.service.ContentTagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class TagController {
     @NonNull
     private final ContentTagMapper mapper;
     @NonNull
-    private final TagService service;
+    private final ContentTagService service;
 
     /**
      * Returns created Tag.

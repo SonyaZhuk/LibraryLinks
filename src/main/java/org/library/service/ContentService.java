@@ -16,12 +16,12 @@ import java.time.Instant;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserContentDbService {
+public class ContentService {
 
     @NonNull
     private final UserContentRepository userContentRepository;
     @NonNull
-    private final TagService tagService;
+    private final ContentTagService tagService;
     @NonNull
     private final UserService userService;
 
@@ -38,7 +38,7 @@ public class UserContentDbService {
         userContent.setContentTag(tagFromDb);
         userContent.setUser(userService.findUserById(1L));
 
-        return userContentRepository.saveAndFlush(userContent);
+        return userContentRepository.save(userContent);
     }
 
     /**
@@ -72,7 +72,7 @@ public class UserContentDbService {
         contentFromDb.setRating(userContent.getRating());
         contentFromDb.setContentTag(tagService.findByTag(userContent.getContentTag().getTag()));
         contentFromDb.setUpdatedDate(Instant.now());
-        return userContentRepository.saveAndFlush(contentFromDb);
+        return userContentRepository.save(contentFromDb);
     }
 
     /**

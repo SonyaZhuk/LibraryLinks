@@ -8,7 +8,7 @@ import org.library.dto.request.UpdateContentDto;
 import org.library.dto.response.ContentDto;
 import org.library.mapper.UserContentMapper;
 import org.library.model.UserContent;
-import org.library.service.UserContentDbService;
+import org.library.service.ContentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(ContentEndpoints.CONTENT)
-public class UserContentDbController {
+public class ContentController {
 
     @NonNull
     private final UserContentMapper mapper;
     @NonNull
-    private final UserContentDbService userContentDbService;
+    private final ContentService contentService;
 
     /**
      * Returns created Content.
@@ -33,7 +33,7 @@ public class UserContentDbController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ContentDto create(@RequestBody final CreateContentDto dto) {
         UserContent userContent = mapper.toModel(dto);
-        return mapper.toDto(userContentDbService.createContent(userContent));
+        return mapper.toDto(contentService.createContent(userContent));
     }
 
     /**
@@ -45,7 +45,7 @@ public class UserContentDbController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(ContentEndpoints.ID_RELATIVE_PATH)
     public ContentDto read(@PathVariable final long id) {
-        return mapper.toDto(userContentDbService.readContent(id));
+        return mapper.toDto(contentService.readContent(id));
     }
 
     /**
@@ -60,7 +60,7 @@ public class UserContentDbController {
     public ContentDto update(@PathVariable final long id,
                          final @RequestBody UpdateContentDto dto) {
         final UserContent content = mapper.toModel(dto);
-        return mapper.toDto(userContentDbService.updateContent(id, content));
+        return mapper.toDto(contentService.updateContent(id, content));
     }
 
     /**
@@ -72,6 +72,6 @@ public class UserContentDbController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping(ContentEndpoints.ID_RELATIVE_PATH)
     public void delete(@PathVariable final long id) {
-        userContentDbService.deleteContent(id);
+        contentService.deleteContent(id);
     }
 }

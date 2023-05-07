@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface UserContentMapper {
 
@@ -27,4 +29,6 @@ public interface UserContentMapper {
 
     @Mapping(target = "tag", source = "contentTag.tag")
     ContentDto toDto(UserContent model);
+
+    List<ContentDto> toDtos(List<UserContent> model);
 }
