@@ -15,21 +15,13 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tag")
-public class Tag {
+@Table(name = "content_tag", schema = "library")
+public class ContentTag {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id", unique = true)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "content_id", nullable = false, referencedColumnName = "id", unique = true)
-    private Content content;
 
     @Column(name = "tag", nullable = false)
     private String tag;

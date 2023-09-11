@@ -1,12 +1,10 @@
 package org.library.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.library.enums.ContentStatus;
+import org.library.enums.ContentType;
 import org.library.enums.Priority;
 
 import javax.persistence.*;
@@ -17,7 +15,7 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_content")
+@Table(name = "user_content", schema = "library")
 public class UserContent {
 
     @Id
@@ -25,13 +23,20 @@ public class UserContent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-//    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id", unique = true)
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id", unique = true)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "content_id", nullable = false, referencedColumnName = "id", unique = true)
-    private Content content;
+    @JoinColumn(name = "content_tag_id", nullable = false, referencedColumnName = "id", unique = true)
+    private ContentTag contentTag;
+
+    @Column(name = "link", nullable = false)
+    private String link;
+
+    @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ContentType type;
 
     @Column(name = "name", nullable = false)
     private String name;

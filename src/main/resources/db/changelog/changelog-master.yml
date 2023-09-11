@@ -3,10 +3,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/changeset/create-user-table.sql
   - include:
-      file: db/changelog/changeset/create-content-table.sql
+      file: db/changelog/changeset/create-content-tag-table.sql
   - include:
       file: db/changelog/changeset/create-user-content-table.sql
   - include:
-      file: db/changelog/changeset/create-user-content-tag.sql
-  - include:
-      file: db/changelog/changeset/insert-user-table/sql
+      file: db/changelog/changeset/insert-user-table.sql
