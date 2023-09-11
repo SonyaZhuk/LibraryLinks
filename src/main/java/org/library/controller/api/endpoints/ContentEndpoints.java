@@ -16,12 +16,6 @@ public final class ContentEndpoints {
      */
     public static final String CONTENT = "contents";
 
-    @Deprecated
-    /**
-     * Content constant.
-     */
-    public static final String CONTENTS = "content";
-
     /**
      * Content path.
      */
@@ -33,11 +27,6 @@ public final class ContentEndpoints {
     public static final String ID_RELATIVE_PATH = "/{id}";
 
     /**
-     * Content with ID path.
-     */
-    public static final String CONTENT_WITH_ID_PATH = CONTENT_PATH + ID_RELATIVE_PATH;
-
-    /**
      * Content tags.
      */
     public static final String TAG = "tags";
@@ -45,5 +34,10 @@ public final class ContentEndpoints {
     /**
      * Tag Placeholder.
      */
-    public static final String TAG_RELATIVE_PATH = "/tag/{tag}";
+    public static final String TAG_RELATIVE_PATH = "/{tag}";
+
+    /**
+     * Tag path.
+     */
+    public static final String TAG_PATH = VERSIONED_API_PATH + TAG;
 }

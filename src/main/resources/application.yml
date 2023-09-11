@@ -9,7 +9,3 @@ spring:
   # db migrations
   liquibase:
     change-log: classpath:db/changelog/changelog-master.yml
-
-elastic:
-  host: localhost
-  port: 9200
