@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ContentEndpoints.CONTENT)
+@RequestMapping(ContentEndpoints.CONTENT_PATH)
 public class ContentController {
-
     @NonNull
     private final UserContentMapper mapper;
     @NonNull

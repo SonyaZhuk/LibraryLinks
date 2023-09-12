@@ -11,11 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ContentEndpoints.TAG)
-public class TagController {
-
+@RequestMapping(ContentEndpoints.TAG_PATH)
+public class ContentTagController {
     @NonNull
     private final ContentTagMapper mapper;
     @NonNull
@@ -30,6 +31,17 @@ public class TagController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ContentTagDto create(@RequestBody final CreateContentTagDto dto) {
-        return mapper.toDto(service.createContentTag(mapper.toModel(dto)));
+        return mapper.toDto(service.createContentTag(dto.getTag()));
+    }
+
+    /**
+     * Returns all created Tags.
+     *
+     * @return all created Tags from database.
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> readAll() {
+        return service.findAllContentTags();
     }
 }

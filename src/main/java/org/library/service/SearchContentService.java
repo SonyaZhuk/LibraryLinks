@@ -23,7 +23,7 @@ public class SearchContentService {
     private final ContentTagService contentTagService;
 
     public List<UserContent> findContentsByTagWithPaging(String tag, int page, int size) {
-        final ContentTag contentTag = contentTagService.findByTag(tag);
+        final ContentTag contentTag = contentTagService.findByContentTag(tag);
         final Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         return userContentRepository.findByContentTag(contentTag, pageable).getContent();
     }

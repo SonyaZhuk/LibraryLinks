@@ -3,6 +3,7 @@ package org.library.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.library.enums.ContentStatus;
 import org.library.exception.EntityNotFoundException;
 import org.library.model.ContentTag;
 import org.library.model.UserContent;
@@ -31,12 +32,13 @@ public class ContentService {
      *
      * <p>save new Content with unique uuid, otherwise throw validation exception.
      *
-     * @param userContent Data Transfer Object for Content.
+     * @param userContent Model Transfer Object for Content.
      * @return model transfer object UserContent.
      */
     public UserContent createContent(UserContent userContent) {
-        final ContentTag tagFromDb = tagService.findByTag(userContent.getContentTag().getTag());
+        final ContentTag tagFromDb = tagService.findByContentTag(userContent.getContentTag().getTag());
         userContent.setContentTag(tagFromDb);
+        userContent.setStatus(ContentStatus.NEW);
         userContent.setUser(userService.findUserById(1L));
 
         return userContentRepository.save(userContent);
@@ -60,7 +62,7 @@ public class ContentService {
      *
      * <p>update Content details by ID, otherwise throw Validation exception.
      *
-     * @param id -  Content ID.
+     * @param id          -  Content ID.
      * @param userContent - Content factory transfer object for update.
      * @return model transfer object UserContent.
      */
@@ -73,15 +75,15 @@ public class ContentService {
         contentFromDb.setPriority(userContent.getPriority());
         contentFromDb.setStatus(userContent.getStatus());
         contentFromDb.setRating(userContent.getRating());
-        contentFromDb.setContentTag(tagService.findByTag(userContent.getContentTag().getTag()));
+        contentFromDb.setContentTag(tagService.findByContentTag(userContent.getContentTag().getTag()));
         contentFromDb.setUpdatedDate(Instant.now());
         return userContentRepository.save(contentFromDb);
     }
 
     /**
-     * Delete content by it's uuid
+     * Delete content by it's uuid.
      *
-     * @param id content id
+     * @param id content id.
      */
     public void deleteContent(long id) {
         final UserContent content = userContentRepository.findById(id)
