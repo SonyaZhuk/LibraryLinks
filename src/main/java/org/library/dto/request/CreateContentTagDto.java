@@ -1,18 +1,11 @@
 package org.library.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class CreateContentTagDto {
 
-    @NotBlank
+    @NotBlank(message = "tag cannot be empty")
     private String tag;
 }

@@ -56,7 +56,7 @@ public class UserContent {
     private Integer rating;
 
     @CreationTimestamp
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     private Instant createdDate;
 
     @UpdateTimestamp

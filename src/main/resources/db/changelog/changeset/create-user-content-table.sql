@@ -3,7 +3,7 @@ CREATE TABLE library.user_content
     id             SERIAL          NOT NULL,
     user_id        BIGINT          NOT NULL,
     content_tag_id BIGINT          NOT NULL,
-    link           VARCHAR(255)    NOT NULL,
+    link           VARCHAR(255)    NOT NULL UNIQUE,
     type           VARCHAR(50)     NOT NULL,
     name           VARCHAR(100)    NOT NULL,
     description    VARCHAR(255)    NULL,
