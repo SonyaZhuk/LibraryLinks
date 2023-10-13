@@ -12,7 +12,7 @@ public class CreateContentDto {
 
     @NotBlank
     private String link;
-    @NotNull(message = "type cannot be empty")
+    @NotNull(message = "type is required")
     private ContentType type;
     @NotBlank
     private String tag;
@@ -20,9 +20,9 @@ public class CreateContentDto {
     private String name;
     @NotBlank
     private String description;
-    @NotNull(message = "priority cannot be empty")
+    @NotNull(message = "priority is required")
     private Priority priority;
-    @NotNull(message = "status cannot be empty")
+    @NotNull(message = "status is required")
     private ContentStatus status;
     @NotNull
     private Integer rating;
