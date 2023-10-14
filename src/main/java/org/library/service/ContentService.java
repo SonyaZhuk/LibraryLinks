@@ -10,8 +10,6 @@ import org.library.model.UserContent;
 import org.library.repository.UserContentRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-
 /**
  * The service which contains CRUD operations related to the Content.
  */
@@ -19,7 +17,6 @@ import java.time.Instant;
 @Service
 @RequiredArgsConstructor
 public class ContentService {
-
     @NonNull
     private final UserContentRepository userContentRepository;
     @NonNull
@@ -36,7 +33,8 @@ public class ContentService {
      * @return model transfer object UserContent.
      */
     public UserContent createContent(UserContent userContent) {
-        final ContentTag tagFromDb = tagService.findByContentTag(userContent.getContentTag().getTag());
+        final String tag = userContent.getContentTag().getTag();
+        final ContentTag tagFromDb = tagService.findByContentTag(tag);
         userContent.setContentTag(tagFromDb);
         userContent.setStatus(ContentStatus.NEW);
         userContent.setUser(userService.findUserById(1L));
@@ -67,7 +65,7 @@ public class ContentService {
      * @return model transfer object UserContent.
      */
     public UserContent updateContent(long id, UserContent userContent) {
-        UserContent contentFromDb = userContentRepository.findById(id).orElseThrow(() ->
+        final UserContent contentFromDb = userContentRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Content with id %d not found.", id));
         contentFromDb.setLink(userContent.getLink());
         contentFromDb.setName(userContent.getName());
@@ -75,8 +73,8 @@ public class ContentService {
         contentFromDb.setPriority(userContent.getPriority());
         contentFromDb.setStatus(userContent.getStatus());
         contentFromDb.setRating(userContent.getRating());
-        contentFromDb.setContentTag(tagService.findByContentTag(userContent.getContentTag().getTag()));
-        contentFromDb.setUpdatedDate(Instant.now());
+        final String tag = userContent.getContentTag().getTag();
+        contentFromDb.setContentTag(tagService.findByContentTag(tag));
         return userContentRepository.save(contentFromDb);
     }
 

@@ -27,7 +27,7 @@ public class ContentTagService {
      * @return model transfer object for a tag.
      */
     public ContentTag createContentTag(String tag) {
-        ContentTag newTag = new ContentTag();
+        final ContentTag newTag = new ContentTag();
         newTag.setTag(tag.toUpperCase());
         return repository.save(newTag);
     }
@@ -41,7 +41,7 @@ public class ContentTagService {
      * @return model transfer object for a tag.
      */
     public ContentTag findByContentTag(String tag) {
-        return repository.findByTag(tag).orElseThrow(() ->
+        return repository.findByTag(tag.toUpperCase()).orElseThrow(() ->
                 new EntityNotFoundException("Tag with title %s not found.", tag));
     }
 

@@ -10,6 +10,9 @@ import org.library.enums.Priority;
 import javax.persistence.*;
 import java.time.Instant;
 
+/**
+ * Entity that represents Content.
+ */
 @Entity
 @Getter
 @Setter
@@ -56,7 +59,7 @@ public class UserContent {
     private Integer rating;
 
     @CreationTimestamp
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     private Instant createdDate;
 
     @UpdateTimestamp

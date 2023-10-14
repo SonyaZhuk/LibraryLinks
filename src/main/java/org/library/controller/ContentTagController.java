@@ -1,5 +1,6 @@
 package org.library.controller;
 
+import javax.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.library.controller.api.endpoints.ContentEndpoints;
@@ -30,7 +31,7 @@ public class ContentTagController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ContentTagDto create(@RequestBody final CreateContentTagDto dto) {
+    public ContentTagDto create(@Valid @RequestBody final CreateContentTagDto dto) {
         return mapper.toDto(service.createContentTag(dto.getTag()));
     }
 

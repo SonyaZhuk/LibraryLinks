@@ -1,24 +1,18 @@
 package org.library.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.library.enums.ContentStatus;
 import org.library.enums.ContentType;
 import org.library.enums.Priority;
 
-import javax.validation.constraints.NotBlank;
-
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class CreateContentDto {
 
     @NotBlank
     private String link;
-    @NotBlank
+    @NotNull(message = "type is required")
     private ContentType type;
     @NotBlank
     private String tag;
@@ -26,10 +20,10 @@ public class CreateContentDto {
     private String name;
     @NotBlank
     private String description;
-    @NotBlank
+    @NotNull(message = "priority is required")
     private Priority priority;
-    @NotBlank
+    @NotNull(message = "status is required")
     private ContentStatus status;
-    @NotBlank
+    @NotNull
     private Integer rating;
 }

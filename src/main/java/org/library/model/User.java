@@ -7,6 +7,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.Instant;
 
+/**
+ * Entity that represents User.
+ */
 @Entity
 @Getter
 @Setter
@@ -37,10 +40,20 @@ public class User {
     private String email;
 
     @CreationTimestamp
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     private Instant createdDate;
 
     @UpdateTimestamp
     @Column(name = "updated_date")
     private Instant updatedDate;
+
+    @PrePersist
+    void onCreate() {
+        this.setCreatedDate(Instant.now());
+        this.setUpdatedDate(Instant.now());
+    }
+    @PreUpdate
+    void onUpdate() {
+        this.setUpdatedDate(Instant.now());
+    }
 }
