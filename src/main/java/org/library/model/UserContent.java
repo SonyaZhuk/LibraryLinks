@@ -10,6 +10,9 @@ import org.library.enums.Priority;
 import javax.persistence.*;
 import java.time.Instant;
 
+/**
+ * Entity that represents Content.
+ */
 @Entity
 @Getter
 @Setter

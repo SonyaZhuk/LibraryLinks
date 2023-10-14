@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Controller Advice that handles service and dto errors response.
+ */
 @ControllerAdvice
 @ResponseBody
 public class ExceptionAdvice {
 
-  @ExceptionHandler(value = MethodArgumentNotValidException.class)
+  @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ErrorResponse handleException(MethodArgumentNotValidException exception) {
 
@@ -24,13 +27,14 @@ public class ExceptionAdvice {
         .map(err -> new ErrorDto(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
         .distinct()
         .collect(Collectors.toList());
-    return ErrorResponse.builder().errorMessage(errorMessages).build();
+    return ErrorResponse.builder().errorCode(HttpStatus.BAD_REQUEST.value())
+        .errorMessage(errorMessages).build();
   }
 
-  @ExceptionHandler(value = EntityNotFoundException.class)
+  @ExceptionHandler(EntityNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ServiceErrorResponse handleException(EntityNotFoundException exception) {
-    return ServiceErrorResponse.builder()
+    return ServiceErrorResponse.builder().errorCode(HttpStatus.NOT_FOUND.value())
         .errorMessage(exception.getMessage()).build();
   }
 }

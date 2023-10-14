@@ -10,6 +10,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.Instant;
 
+/**
+ * Entity that represents Tag.
+ */
 @Entity
 @Getter
 @Setter
