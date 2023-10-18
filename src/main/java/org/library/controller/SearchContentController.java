@@ -29,7 +29,7 @@ public class SearchContentController {
   public SearchContentDto searchContent(@RequestParam String tag,
                                         @RequestParam(required = false, defaultValue = "0")
                                         int page,
-                                        @RequestParam(required = false, defaultValue = "-1")
+                                        @RequestParam(required = false, defaultValue = "0")
                                         int size) {
     final List<ContentDto> contents = mapper.toDtos(
         searchContentService.findContentsByTagWithPaging(tag, page, size));

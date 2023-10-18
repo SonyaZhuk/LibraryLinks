@@ -27,17 +27,18 @@ public class SearchContentService {
   /**
    * Searches contents by its tag.
    *
-   * @param tag  Content Tag.
+   * @param tag Content Tag.
    * @return relevant list UserContent.
    */
   public List<UserContent> findContentsByTagWithPaging(String tag, int page, int size) {
     final ContentTag contentTag = contentTagService.findByContentTag(tag);
 
-    if (page < 0 || size <= 0) {
-      return userContentRepository.findByContentTag(contentTag, null).getContent();
+    Pageable pageable = null;
+
+    if (page >= 0 && size > 0) {
+      pageable = PageRequest.of(page, size);
     }
 
-    final Pageable pageable = PageRequest.of(page, size);
     return userContentRepository.findByContentTag(contentTag, pageable).getContent();
   }
 }
