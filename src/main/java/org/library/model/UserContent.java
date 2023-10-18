@@ -34,7 +34,7 @@ public class UserContent {
     @JoinColumn(name = "content_tag_id", nullable = false, referencedColumnName = "id", unique = true)
     private ContentTag contentTag;
 
-    @Column(name = "link", nullable = false)
+    @Column(name = "link", nullable = false, unique = true)
     private String link;
 
     @Column(name = "type", nullable = false)

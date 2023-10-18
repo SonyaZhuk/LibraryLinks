@@ -2,6 +2,7 @@ package org.library.dto.response.error;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 /**
  * Model that represents service error response.
@@ -10,6 +11,7 @@ import lombok.Data;
 @Builder
 public class ServiceErrorResponse {
 
-  private int errorCode;
+  private int status;
+  private HttpStatus responseStatus;
   private String errorMessage;
 }

@@ -1,5 +1,6 @@
 package org.library.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 import org.library.enums.ContentStatus;
@@ -20,6 +21,8 @@ public class ContentDto {
     private Priority priority;
     private ContentStatus status;
     private Integer rating;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
     private Instant createdDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
     private Instant updatedDate;
 }

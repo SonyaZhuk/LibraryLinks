@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.library.enums.ContentStatus;
+import org.library.exception.DuplicateLinkException;
 import org.library.exception.EntityNotFoundException;
 import org.library.model.ContentTag;
 import org.library.model.UserContent;
@@ -36,6 +37,8 @@ public class ContentService {
         final String tag = userContent.getContentTag().getTag();
         final ContentTag tagFromDb = tagService.findByContentTag(tag);
         userContent.setContentTag(tagFromDb);
+
+        checkDuplicationLink(userContent.getLink());
         userContent.setStatus(ContentStatus.NEW);
         userContent.setUser(userService.findUserById(1L));
 
@@ -88,5 +91,11 @@ public class ContentService {
                 .orElseThrow(() -> new EntityNotFoundException("Content with id %d not found.", id));
 
         userContentRepository.delete(content);
+    }
+
+    private void checkDuplicationLink(String link) {
+        if (userContentRepository.existsUserContentByLink(link)) {
+            throw new DuplicateLinkException("Content with the link %s already exists.", link);
+        }
     }
 }

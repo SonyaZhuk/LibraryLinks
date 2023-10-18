@@ -8,23 +8,34 @@ import org.library.model.UserContent;
 import org.library.repository.UserContentRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The service which contains Search operations related to the Content.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class SearchContentService {
-    @NonNull
-    private final UserContentRepository userContentRepository;
-    @NonNull
-    private final ContentTagService contentTagService;
+  @NonNull
+  private final UserContentRepository userContentRepository;
+  @NonNull
+  private final ContentTagService contentTagService;
 
-    public List<UserContent> findContentsByTagWithPaging(String tag, int page, int size) {
-        final ContentTag contentTag = contentTagService.findByContentTag(tag);
-        final Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        return userContentRepository.findByContentTag(contentTag, pageable).getContent();
-    }
+  /**
+   * Searches contents by its tag.
+   *
+   * @param tag Content Tag.
+   * @return relevant list UserContent.
+   */
+  public List<UserContent> findContentsByTagWithPaging(String tag, int page, int size) {
+    final ContentTag contentTag = contentTagService.findByContentTag(tag);
+
+    final Pageable pageable = (page >= 0 && size > 0) ?
+        PageRequest.of(page, size) : null;
+
+    return userContentRepository.findByContentTag(contentTag, pageable).getContent();
+  }
 }

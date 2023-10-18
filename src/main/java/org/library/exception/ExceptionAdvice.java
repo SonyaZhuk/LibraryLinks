@@ -27,14 +27,24 @@ public class ExceptionAdvice {
         .map(err -> new ErrorDto(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
         .distinct()
         .collect(Collectors.toList());
-    return ErrorResponse.builder().errorCode(HttpStatus.BAD_REQUEST.value())
+    return ErrorResponse.builder().status(HttpStatus.BAD_REQUEST.value())
+        .responseStatus(HttpStatus.BAD_REQUEST)
         .errorMessage(errorMessages).build();
   }
 
   @ExceptionHandler(EntityNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ServiceErrorResponse handleException(EntityNotFoundException exception) {
-    return ServiceErrorResponse.builder().errorCode(HttpStatus.NOT_FOUND.value())
+    return ServiceErrorResponse.builder().status(HttpStatus.NOT_FOUND.value())
+        .responseStatus(HttpStatus.NOT_FOUND)
+        .errorMessage(exception.getMessage()).build();
+  }
+
+  @ExceptionHandler(DuplicateLinkException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ServiceErrorResponse handleException(DuplicateLinkException exception) {
+    return ServiceErrorResponse.builder().status(HttpStatus.BAD_REQUEST.value())
+        .responseStatus(HttpStatus.BAD_REQUEST)
         .errorMessage(exception.getMessage()).build();
   }
 }

@@ -1,5 +1,6 @@
 package org.library.repository;
 
+import lombok.NonNull;
 import org.library.model.ContentTag;
 import org.library.model.UserContent;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,9 @@ import java.util.Optional;
 public interface UserContentRepository extends PagingAndSortingRepository<UserContent, Long> {
 
     @EntityGraph(attributePaths = {"user","contentTag"}, type = EntityGraph.EntityGraphType.FETCH)
-    Optional<UserContent> findById(Long id);
+    Optional<UserContent> findById(@NonNull Long id);
+    boolean existsUserContentByLink(@NonNull String link);
+
     @EntityGraph(attributePaths = {"user","contentTag"}, type = EntityGraph.EntityGraphType.FETCH)
-    Page<UserContent> findByContentTag(ContentTag contentTag, Pageable pageable);
+    Page<UserContent> findByContentTag(@NonNull ContentTag contentTag, @NonNull Pageable pageable);
 }
