@@ -33,11 +33,11 @@ public class SearchContentService {
   public List<UserContent> findContentsByTagWithPaging(String tag, int page, int size) {
     final ContentTag contentTag = contentTagService.findByContentTag(tag);
 
-    if (page <= 0 || size <= 0) {
+    if (page < 0 || size <= 0) {
       return userContentRepository.findByContentTag(contentTag, null).getContent();
     }
 
-    final Pageable pageable = PageRequest.of(page, size, null);
+    final Pageable pageable = PageRequest.of(page, size);
     return userContentRepository.findByContentTag(contentTag, pageable).getContent();
   }
 }
