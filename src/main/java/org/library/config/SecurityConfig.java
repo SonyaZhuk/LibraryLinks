@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(GET, "/actuator/**")
                 .permitAll()
                 .antMatchers(GET, ContentEndpoints.TAG_PATH)
-                .hasAnyAuthority("ADMIN", "USER")
+                .permitAll()
                 .antMatchers(POST, ContentEndpoints.TAG_PATH)
                 .hasAnyAuthority("ADMIN")
                 .antMatchers(ContentEndpoints.CONTENT_PATH)

@@ -23,7 +23,6 @@ public class CustomJwtGrantedAuthoritiesConverter implements
    */
   @Override
   public Collection<GrantedAuthority> convert(@NotNull Jwt jwt) {
-    SimpleGrantedAuthority s = new SimpleGrantedAuthority(jwt.getClaim("groups"));
     return List.of(new SimpleGrantedAuthority(jwt.getClaim("groups")));
   }
 }
