@@ -14,7 +14,6 @@ import org.library.model.ContentTag;
 import org.library.model.UserContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
-
 @Slf4j
 @DisplayName("user content service test suite")
 @Sql(scripts = "classpath:__files/drop_all_h2.sql",
@@ -30,7 +29,6 @@ public class ContentServiceTest extends AbstractTest {
     final ContentTag tag = GenericTestData.generateContentTag();
     contentTagService.createContentTag(tag.getTag());
   }
-
   @Test
   @DisplayName("should save content")
   public void shouldSaveContent() {
@@ -43,7 +41,6 @@ public class ContentServiceTest extends AbstractTest {
     //assert
     assertThat(savedUserContent.getId()).isNotNull();
   }
-
   @Test
   @DisplayName("should read content")
   public void shouldReadContent() {
@@ -57,7 +54,6 @@ public class ContentServiceTest extends AbstractTest {
     //assert
     assertThat(savedUserContent.getId()).isNotNull();
   }
-
   @Test
   @DisplayName("should update content")
   public void shouldUpdateContent() {
@@ -74,7 +70,6 @@ public class ContentServiceTest extends AbstractTest {
     assertThat(updatedUserContent.getId()).isNotNull();
     assertThat(updatedUserContent.getName()).isEqualTo("new content name");
   }
-
   @Test
   @DisplayName("should delete content")
   public void shouldDeleteContent() {

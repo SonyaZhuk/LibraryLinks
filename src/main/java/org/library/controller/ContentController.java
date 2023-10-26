@@ -40,7 +40,7 @@ public class ContentController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ContentDto create(@Valid @RequestBody final CreateContentDto dto) {
-        UserContent userContent = mapper.toModel(dto);
+        final UserContent userContent = mapper.toModel(dto);
         return mapper.toDto(contentService.createContent(userContent));
     }
 
