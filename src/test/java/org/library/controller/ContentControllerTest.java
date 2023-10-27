@@ -5,11 +5,10 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.library.common.GenericTestData;
+import org.library.common.WebIntegrationTest;
 import org.library.controller.api.endpoints.ContentEndpoints;
 import org.library.dto.request.CreateContentDto;
 import org.library.dto.request.UpdateContentDto;
@@ -17,29 +16,20 @@ import org.library.dto.response.ContentDto;
 import org.library.mapper.UserContentMapper;
 import org.library.model.UserContent;
 import org.library.service.ContentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-@Slf4j
-@SuppressWarnings("LineLength")
 @AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(ContentController.class)
 @DisplayName("content controller test suite")
-public class ContentControllerTest  {
-  @Autowired
-  protected ObjectMapper objectMapper;
-  @Autowired
-  protected MockMvc mockMvc;
+public class ContentControllerTest extends WebIntegrationTest {
   @MockBean
   private UserContentMapper mapper;
   @MockBean
   private ContentService contentService;
-
   @Test
   public void shouldCreateContent() throws Exception {
     //arrange
@@ -58,8 +48,6 @@ public class ContentControllerTest  {
         .andExpect(status().isOk())
         .andExpect(content().string(objectMapper.writeValueAsString(response)));
   }
-
-
   @Test
   public void shouldGetContent() throws Exception {
     //arrange
@@ -77,7 +65,6 @@ public class ContentControllerTest  {
         .andExpect(status().isOk())
         .andExpect(content().string(objectMapper.writeValueAsString(response)));
   }
-
   @Test
   public void shouldUpdateContent() throws Exception {
     //arrange
@@ -98,7 +85,6 @@ public class ContentControllerTest  {
         .andExpect(status().isOk())
         .andExpect(content().string(objectMapper.writeValueAsString(response)));
   }
-
   @Test
   public void shouldDeleteContent() throws Exception {
     //arrange-act-assert
