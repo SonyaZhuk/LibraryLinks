@@ -1,11 +1,13 @@
 package org.library.dto.request;
 
+import lombok.Builder;
 import lombok.Data;
 import org.library.enums.ContentStatus;
 import org.library.enums.ContentType;
 import org.library.enums.Priority;
 
 @Data
+@Builder
 public class UpdateContentDto {
 
     private String link;

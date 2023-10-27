@@ -39,9 +39,6 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-//    @Column(name = "role", nullable = false)
-//    private String role;
-
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
     private Instant createdDate;

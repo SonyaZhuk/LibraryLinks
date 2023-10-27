@@ -1,0 +1,2 @@
+TRUNCATE TABLE library.user_content RESTART IDENTITY;
+TRUNCATE TABLE library.content_tag RESTART IDENTITY;
