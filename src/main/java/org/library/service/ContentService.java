@@ -42,7 +42,9 @@ public class ContentService {
         userContent.setStatus(ContentStatus.NEW);
         userContent.setUser(userService.findUserById(1L));
 
-        return userContentRepository.save(userContent);
+        UserContent savedUserContent = userContentRepository.save(userContent);
+        log.info("content is saved: id={}", savedUserContent.getId());
+        return savedUserContent;
     }
 
     /**
@@ -78,7 +80,9 @@ public class ContentService {
         contentFromDb.setRating(userContent.getRating());
         final String tag = userContent.getContentTag().getTag();
         contentFromDb.setContentTag(tagService.findByContentTag(tag));
-        return userContentRepository.save(contentFromDb);
+        UserContent updatedUserContent = userContentRepository.save(contentFromDb);
+        log.info("content is updated: id={}", updatedUserContent.getId());
+        return updatedUserContent;
     }
 
     /**
@@ -91,10 +95,12 @@ public class ContentService {
                 .orElseThrow(() -> new EntityNotFoundException("Content with id %d not found.", id));
 
         userContentRepository.delete(content);
+        log.info("content is deleted: id={}", id);
     }
 
     private void checkDuplicationLink(String link) {
         if (userContentRepository.existsUserContentByLink(link)) {
+            log.error("content with duplicate link: link={}", link);
             throw new DuplicateLinkException("Content with the link %s already exists.", link);
         }
     }
