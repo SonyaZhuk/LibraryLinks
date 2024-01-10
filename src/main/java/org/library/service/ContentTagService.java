@@ -29,7 +29,9 @@ public class ContentTagService {
     public ContentTag createContentTag(String tag) {
         final ContentTag newTag = new ContentTag();
         newTag.setTag(tag.toUpperCase());
-        return repository.save(newTag);
+        ContentTag savedContentTag = repository.save(newTag);
+        log.info("content tag is saved: id={}", savedContentTag.getId());
+        return savedContentTag;
     }
 
     /**

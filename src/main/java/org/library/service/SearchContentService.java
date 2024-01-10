@@ -33,9 +33,9 @@ public class SearchContentService {
   public List<UserContent> findContentsByTagWithPaging(String tag, int page, int size) {
     final ContentTag contentTag = contentTagService.findByContentTag(tag);
 
-    final Pageable pageable = (page >= 0 && size > 0) ?
-        PageRequest.of(page, size) : null;
+    final Pageable pageable = (page >= 0 && size > 0) ? PageRequest.of(page, size) : null;
 
+    log.info("search by content tag: tag={}", tag);
     return userContentRepository.findByContentTag(contentTag, pageable).getContent();
   }
 }
