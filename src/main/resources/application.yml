@@ -20,3 +20,16 @@ jwt:
         -----BEGIN PUBLIC KEY-----
         MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkjKYGa2bzzv4/LR8RyMBasI6e6lji1RdM8lOAVSbV1AbGcX0srtO9kopWlQ9Nl39lB/NeHaxPgPMdg2xpJtP9fN96iEZuCoL5y8Wg/EBLzYQSNIy+4LxgPGXqaHh1wQ9CYFSNnI4xUGHnHuGrVc30vuMquIFlAE6T1hRGnOlGNN0gqrJMLDhOh+tKLnogEY1NZbwfyE7O0Ll4kwO8jsdmTinDMRRihTFO/GoPHSstcjO8idIywPpdEEwyhFD5FHKCA3iMcw2tCCe/hpLMJJ2vO8dBu/XHZMQUDLxfnbTq1G36z2+L1J0v3O3I1xulv6Zx4hPqF/R2dyGK3poNHP0QQIDAQAB
         -----END PUBLIC KEY-----
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true

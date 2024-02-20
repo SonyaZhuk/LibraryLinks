@@ -18,6 +18,7 @@
     <description>home library for useful links</description>
 
     <properties>
+        <java.version>21</java.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,7 +31,7 @@
     </properties>
 
     <dependencies>
-        <!--region spring-->
+        <!--region spring core-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -43,6 +44,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+        <!--end region spring core-->
 
         <!--region db-->
         <dependency>
@@ -55,9 +57,9 @@
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase-core.version}</version>
         </dependency>
-        <!--endregion-->
+        <!--end region-->
 
-        <!-- Spring Security -->
+        <!-- region spring security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
@@ -80,7 +82,18 @@
             <artifactId>bcpkix-jdk15on</artifactId>
             <version>${org.bouncycastle.version}</version>
         </dependency>
-        <!-- Spring Security End -->
+        <!-- end region spring security -->
+
+        <!--region metrics-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <!-- end region metrics -->
 
         <!--region utils-->
         <dependency>
@@ -93,7 +106,7 @@
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
-        <!--endregion-->
+        <!--end region-->
 
         <!--region test-->
         <dependency>
@@ -106,7 +119,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--endregion-->
+        <!--end region-->
     </dependencies>
 
     <build>

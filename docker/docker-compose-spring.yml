@@ -44,20 +44,5 @@ services:
         aliases:
           - prometheus
 
-  library-links:
-    container_name: library-links
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/library
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile
-    image: library-links:latest
-    ports:
-      - 8080:8080
-    depends_on:
-      - postgres
-
 networks:
   monitoring:
